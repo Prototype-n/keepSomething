@@ -40,7 +40,7 @@ on:
           - prod
 
 # Run API autotests 'Dev' (preblr [wfmdl2]) triggered Manualy/Scheduled
-run-name: "Run API autotests '${{ inputs.environment == '' && 'dev' || inputs.environment }}' (${{ inputs.fish == '' && 'swordfish' || inputs.fish }} [${{ inputs.tenant == '' && 'ibm' || inputs.tenant }}]) triger "
+run-name: "Run API autotests '${{ inputs.environment == '' && 'dev' || inputs.environment }}' (${{ inputs.fish == '' && 'swordfish' || inputs.fish }} [${{ inputs.tenant == '' && 'ibm' || inputs.tenant }}]) triger ${{ github.event_name }}"
 
 jobs:
   build:
