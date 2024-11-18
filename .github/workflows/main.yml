@@ -60,6 +60,6 @@ jobs:
       COVERAGE: true
       
      
-    # steps:
-    # - name: Checkout code
-    #   uses: actions/checkout@v4
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
