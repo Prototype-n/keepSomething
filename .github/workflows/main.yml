@@ -1,0 +1,43 @@
+name: Run API autotests
+
+env: 
+  FAMILY: Autotests-containers
+  CONTAINER: Auto-container
+  PROJECT_NAME: api-auto
+  SLACK_CHANNEL_ID: 123
+
+on: 
+  schedule:
+    - cron: "00 3 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      fish:
+        description: 'Target Fish; must be defined in the source config'
+        required: true
+        type: string
+        default: 'swordfish'
+      tenant:
+        description: 'Target tenant'
+        required: true
+        type: string
+        default: 'ibm'
+      employee:
+        description: 'Select employee'
+        required: true
+        default: 'Alvaria'
+        type: choice
+        options:
+          - Aspect
+          - Alvaria
+      environment:
+        description: 'Select environment'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - stage
+          - prod
+
+# Run API autotests 'Dev' (preblr [wfmdl2]) triggered Manualy/Scheduled
+run-name: "Run API autotests '${{ inputs.environment == '' && 'dev' || inputs.environment }}' (${{ inputs.fish == '' && 'swordfish' || inputs.fish }} [${{ inputs.tenant == '' && 'ibm' || inputs.tenant }}]) triger "
