@@ -24,11 +24,11 @@ on:
       employee:
         description: 'Select employee'
         required: true
-        default: 'Alvaria'
+        default: 'Corp'
         type: choice
         options:
-          - Aspect
-          - Alvaria
+          - Corp
+          - Corp_2
       environment:
         description: 'Select environment'
         required: true
@@ -41,3 +41,25 @@ on:
 
 # Run API autotests 'Dev' (preblr [wfmdl2]) triggered Manualy/Scheduled
 run-name: "Run API autotests '${{ inputs.environment == '' && 'dev' || inputs.environment }}' (${{ inputs.fish == '' && 'swordfish' || inputs.fish }} [${{ inputs.tenant == '' && 'ibm' || inputs.tenant }}]) triger "
+
+jobs:
+  build:
+    # name: Build and run tests
+    runs-on: ubuntu-latest
+    environment: AWS-yf-ops-automation
+    timeout-minutes: 1
+    env:
+      REGION: 'Some'
+      SECURITY_GROUP: 'Some'
+      SUBNET: 'Some'
+      CLUSTER: 'Some'
+      FISH: ${{ inputs.fish == '' && 'swordfish' || inputs.fish }}
+      TEN: ${{ inputs.tenant == '' && 'ibm' || inputs.tenant }}
+      EMPLOYEE: ${{ inputs.employee == '' && 'Corp' || inputs.employee }}
+      ENVIRONMENT: ${{ inputs.environment == '' && 'dev' || inputs.environment }}
+      COVERAGE: true
+      
+     
+    # steps:
+    # - name: Checkout code
+    #   uses: actions/checkout@v4
