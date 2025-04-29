@@ -64,7 +64,7 @@ env:
   PR_SLACK_CHANNEL: '3'
   # SLACK_CHANNEL_ID: ${{ (inputs.slackchannel == 'regular' || inputs.slackchannel == '' ) && 'C06STJLB622' || 'C08JVLD6GN8' }}
   # SLACK_CHANNEL_ID: ${{ (inputs.pr_number != '' && 'new_channel_id') || (inputs.slackchannel == 'regular' || inputs.slackchannel == '' ) && 'C06STJLB622' || inputs.slackchannel == 'test' && 'C08JVLD6GN8' || 'C06STJLB622' }}
-  TARGET_SLACK_CHANNEL_ID: ${{ (inputs.pr_number != '' && 'C08Q7T35GLA') || (inputs.slackchannel == 'regular' || inputs.slackchannel == '' ) && 'C06STJLB622' || 'C08JVLD6GN8' }}
+  TARGET_SLACK_CHANNEL_ID: ${{ (inputs.pr_number != '' ${{ env.REGULAR_SLACK_CHANNEL }}) || (inputs.slackchannel == 'regular' || inputs.slackchannel == '' ) && 'C06STJLB622' || 'C08JVLD6GN8' }}
   # TEST_LOGIC: ${{ (inputs.pr_number != '' && ${{ env.REGULAR_SLACK_CHANNEL }}) || (inputs.slackchannel == 'regular' || inputs.slackchannel == '' ) && ${{ env.INTERNAL_SLACK_CHANNEL }} || ${{ env.PR_SLACK_CHANNEL }} }}
 
 
