@@ -1,8 +1,8 @@
 name: Run API autotests
 
 on: 
-  schedule:
-    - cron: "00 3 * * 1-5"
+  # schedule:
+  #   - cron: "00 3 * * 1-5"
   workflow_dispatch:
     inputs:
       fish:
@@ -32,6 +32,18 @@ on:
           - dev
           - stage
           - prod
+      slackchannel:
+        description: 'Select Slack Channel'
+        required: true
+        default: 'regular'
+        type: choice
+        options:
+         - regular
+         - test
+      pr_number:
+        description: 'Pull request number'
+        required: false
+        type: string
 
 env:
   FAMILY: Autotests-containers
@@ -47,10 +59,19 @@ env:
   EMPLOYEE: ${{ inputs.employee == '' && 'Corp' || inputs.employee }}
   ENVIRONMENT: ${{ inputs.environment == '' && 'dev' || inputs.environment }}
   COVERAGE: true
+  REGULAR_SLACK_CHANNEL: '1'
+  INTERNAL_SLACK_CHANNEL: '2'
+  PR_SLACK_CHANNEL: '3'
+  # SLACK_CHANNEL_ID: ${{ (inputs.slackchannel == 'regular' || inputs.slackchannel == '' ) && 'C06STJLB622' || 'C08JVLD6GN8' }}
+  # SLACK_CHANNEL_ID: ${{ (inputs.pr_number != '' && 'new_channel_id') || (inputs.slackchannel == 'regular' || inputs.slackchannel == '' ) && 'C06STJLB622' || inputs.slackchannel == 'test' && 'C08JVLD6GN8' || 'C06STJLB622' }}
+  TARGET_SLACK_CHANNEL_ID: ${{ (inputs.pr_number != '' && 'C08Q7T35GLA') || (inputs.slackchannel == 'regular' || inputs.slackchannel == '' ) && 'C06STJLB622' || 'C08JVLD6GN8' }}
+  TEST_LOGIC: ${{ (inputs.pr_number != '' && ${{ env.REGULAR_SLACK_CHANNEL }}) || (inputs.slackchannel == 'regular' || inputs.slackchannel == '' ) && ${{ env.INTERNAL_SLACK_CHANNEL }} || ${{ env.PR_SLACK_CHANNEL }} }}
+
+
       
 # Run API autotests 'dev' (preblr [wfmdl2]) by schedule
 run-name: "Run API autotests '${{ inputs.environment == '' && 'dev' || inputs.environment }}' (${{ inputs.fish == '' && 'swordfish' || inputs.fish }} [${{ inputs.tenant == '' && 'ibm' || inputs.tenant }}]) by ${{ github.event_name }}"
-# run-name: "Run API autotests ${{ env.ENVIRONMENT }} (${{ env.FISH }} [${{ env.TEN }}]) by ${{ github.event_name }}"
+# run-name: "Run API autotests ${{ env.ENVIRONMENT }} (${{ env.FISH }} [${{ env.TEN }}]) by ${{ github.event_name }} ${{ env.TEST_LOGIC }}"
 
 jobs:
   build:
