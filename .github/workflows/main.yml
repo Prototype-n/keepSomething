@@ -71,7 +71,7 @@ env:
       
 # Run API autotests 'dev' (preblr [wfmdl2]) by schedule
 # run-name: "Run API autotests '${{ inputs.environment == '' && 'dev' || inputs.environment }}' (${{ inputs.fish == '' && 'swordfish' || inputs.fish }} [${{ inputs.tenant == '' && 'ibm' || inputs.tenant }}]) by ${{ github.event_name }}"
-run-name: "Run API autotests ${{ env.ENVIRONMENT }} (${{ env.FISH }} [${{ env.TEN }}]) by ${{ github.event_name }} ${{ env.TARGET_SLACK_CHANNEL_ID }}"
+run-name: "Run API autotests and publish in: ${{ env.TARGET_SLACK_CHANNEL_ID }}"
 
 jobs:
   build:
