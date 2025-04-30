@@ -85,7 +85,8 @@ jobs:
       uses: actions/checkout@v4
     
     - name: Print echo
-      run: echo "${{ github.event_name == 'schedule' && '*Daily Test Run finished.*' || '*Manual Test Run finished* ${{ inputs.pr_number != '' && format('PR #{0}', inputs.pr_number) }}' }}"
+      # run: echo "${{ github.event_name == 'schedule' && '*Daily Test Run finished.*' || '*Manual Test Run finished* ${{ inputs.pr_number != '' && format('PR #{0}', inputs.pr_number) }}' }}"
+      run: echo "${{ github.event_name == 'schedule' && '*Daily Test Run finished.*' || '*Manual Test Run finished* ' }}"
 
 # run-name: "Run API autotests '${{ inputs.environment == '' && 'dev' || inputs.environment }}' (${{ inputs.fish == '' && 'swordfish' || inputs.fish }} [${{ inputs.tenant == '' && 'ibm' || inputs.tenant }}]) by ${{ github.event_name }} ${{ inputs.pr_number && format('PR #{0}', inputs.pr_number) || '' }} ${{ inputs.repository && format('from {0}', inputs.repository) || '' }}"
 
