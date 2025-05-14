@@ -83,6 +83,11 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+
+    - name: Get GitHub context - to debug
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: echo "$GITHUB_CONTEXT"
     
     - name: Print echo
       # run: echo "${{ github.event_name == 'schedule' && '*Daily Test Run finished.*' || '*Manual Test Run finished* ${{ inputs.pr_number != '' && format('PR #{0}', inputs.pr_number) }}' }}"
