@@ -89,7 +89,7 @@ jobs:
       run: echo "${{ (github.event_name == 'schedule') && '*Daily Test Run finished.*' || '*Manual Test Run finished*' }} ${{ inputs.pr_number && 'PR#'}} ${{ inputs.pr_number && inputs.pr_number }}"
 
     - name: Print echo 2
-      run: echo "${{ (inputs.pr_number != '' && format('🔃 <https://github.com/{0}/pull/{1}| PR #{1}>', 'my-repo', 'my-pr-number')) }}"
+      run: echo "${{ (inputs.pr_number != '' && format('🔃 <https://github.com/{0}/pull/{1}| PR #{1}>', 'my-repo', 'my-pr-number')) || 'nothing' }}"
       # run: echo "${{ (inputs.pr_number != '') && format('🔃 <https://github.com/{0}/pull/{1}| PR #{1}>', github.event.inputs.repository, inputs.pr_number) || 'bla-bla' }}"
       # (env.PRNUMBER != '' && format('🔃 *PR UI Test Run Finished* <https://github.com/{0}/pull/{1}| PR #{1}>', env.PRREPO, env.PRNUMBER))
 
